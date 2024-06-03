@@ -4,110 +4,108 @@
 
 Fraud detection is a critical task in various industries such as banking, finance, and e-commerce. Detecting fraudulent activities early can save businesses significant losses and maintain trust with customers. In this project, we aim to develop a fraud detection model using machine learning techniques to identify potentially fraudulent transactions.
 
-## Dataset
+## Exploratory Data Analysis Writeup
+Exploratory Data analysis has been performed on the selected data set and results from the analysis are published here in a separate readme file to avoid overloading this file with graphs and notes.
 
-The data set is obtained from Kaggle here: <https://www.kaggle.com/datasets/kartik2112/fraud-detection>. It contains information about transactions, including numerical and categorical features. The target variable is 'is_fraud,' indicating whether a transaction is fraudulent (1) or not (0). There are 23 features in the dataset with below being the most important ones:
+[readme-EDA.md](readme-EDA.md)
 
-- Amt: Transaction amount
-- Category: Transaction category
-- Gender: The gender of the customer
-- State: State of the transaction
-- City_pop: Population of the city
-- Job: Occupation of the customer
-- Is_fraud: Target variable (1 for fraudulent transactions, 0 otherwise)
+## Modelling
 
-Other features include:
+### Models Used
+The following models were trained and evaluated for fraud detection:
 
-- Unnamed
-- Trans_date_trans_time  
-- Cc_num
-- Merchant
-- First
-- Last
-- Street
-- City
-- Zip
-- Lat
-- Long
-- Dob
-- Trans_num
-- Unix_time
-- Merch_lat
-- Merch_long
+- Logistic Regression
+- K-Nearest Neighbors (KNN)
+- Random Forest Classifier
+- Gradient Boosting Classifier
+- Decision Tree Classifier
+- Neural Network
+- Balanced Random Forest Classifier 
 
-## Exploratory Data Analysis (EDA) Steps
+### Techniques Followed for Modeling
+**Data Splitting:** The dataset was split into training and test sets using train_test_split from `sklearn.model_selection`.  The data was split into training (70%) and testing (30%) sets.\
+**Hyperparameter Tuning:** For models where hyperparameter tuning was feasible, GridSearchCV was employed to find the best set of parameters. \
+**Model Training:** Each model was trained on the training set and the best hyperparameters were selected where applicable. \
+**Model Evaluation:** The models were evaluated on the test set using various metrics including accuracy, precision, recall, F1 score, and ROC-AUC score. ROC curves and confusion matrices were plotted for each model.
 
-### Data Loading
+### Modelling Details for each model
 
-Load the dataset into a DataFrame for analysis.
+#### *Base Model - Logistic Regression*
+**Hyperparameters:** Not Applicable \
+**Best Estimator:** Not Applicable since this is base model without grid search cv and hyperparameter tuning. \
+**Results:** Accuracy: 0.9946, Precision: 0.5544, Recall: 0.3856, F1 Score: 0.4548 \
+**Confusion Matrix:** ![Logistic_Regression_without_Hyperparameters.png](Images/modeling/Logistic_Regression_without_Hyperparameters.png)
 
-### Data Cleaning
 
-Handle missing values, duplicate entries, and correct data types if needed. There are no missing values and there are no duplicates to clean up. And, that information is obtained upon checking the dataset.
+#### *Logistic Regression*
+**Hyperparameters:** C, max_iter, class-weight \
+**Best Estimator:** `LogisticRegression(C=10, class_weight={0: 1, 1: 0.5}, max_iter=5000, n_jobs=-1)` \
+**Results:** `Accuracy: 0.9949, Precision: 0.7033, Recall: 0.2158, F1 Score: 0.3302` \
+**Confusion Matrix:** ![Logistic_Regression_with_Hyperparameters.png](Images/modeling/Logistic_Regression_with_Hyperparameters.png)
 
-### Data Visualization
+#### *K-Nearest Neighbors* 
+**Hyperparameters:** n_neighbors \
+**Best Estimator:** `KNeighborsClassifier(n_jobs=-1, n_neighbors=3)`\
+**Results:** `Accuracy: 0.9941, Precision: 0.5009, Recall: 0.7536, F1 Score: 0.6018` \
+**Confusion Matrix:** ![Knn.png](Images/modeling/Knn.png)
 
-1. Plotted histograms and box plots to understand the distribution of numerical features (amt, city_pop, etc.). and below are the outcomes of those plots.\
-![Histograms](Images/histograms.png)\
-The histograms indicate that the amount and population columns are highly skewed with a majority of transaction amounts less than 5000 and a majority of cities with a population less than 0.5 mil.
 
-2. Used bar plots to analyze categorical variables (category, gender, state, job) by counting unique values and their frequencies.\
-2.1 Transactions By State\
-![Transactions by state](<Images/transaction count by state.png>)\
-2.2 Violin and box plots for amount, city population, lat and long.\
-![Violin plot](<Images/violin plots.png>)\
-![Box plot](<Images/box plots.png>)\
-2.3 Transactions by Category.\
-![transactions by category](<Images/transactions by Category.png>)\
-2.4 Transactions by Gender\
-![by gender](<Images/fraud vs gender.png>)
+#### *Random Forest* 
+**Hyperparameters:** n_estimators, max_depth \
+**Best Estimator:** `RandomForestClassifier(n_estimators=300)` \
+**Results:** `Accuracy: 0.9964, Precision: 0.6363, Recall: 0.9033, F1 Score: 0.7466`\
+**Confusion Matrix:** ![Random_Forest.png](Images/modeling/Random_Forest.png)
 
-3. Explore correlations between features using heatmaps or scatter plots.\
-3.1 Pair plot of important features\
-![pair plot](<Images/pair plot.png>)
+#### *Gradient Boosting*
+**Hyperparameters:** n_estimators, learning_rate, max_depth, subsample \
+**Results:** `Accuracy: 0.9975, Precision: 0.7297, Recall: 0.9225, F1 Score: 0.8148`\ 
+**Confusion Matrix:** ![Gradient_Boosting.png](Images/modeling/Gradient_Boosting.png)
 
-### Feature Engineering
+#### *Decision Trees*
+**Hyperparameters:** max_depth
+**Best Estimator:** `DecisionTreeClassifier(max_depth=12)` \
+**Results:** `Accuracy: 0.9978, Precision: 0.7960, Recall: 0.8420, F1 Score: 0.8184`
+**Confusion Matrix:** ![Decision_Tree.png](Images/modeling/Decision_Tree.png)
 
-Create new features such as age from date of birth (dob) and extract temporal features like day of the week, month, and hour from timestamps (trans_date_trans_time).\
-![day of the week](<Images/day of week count.png>)
-![hour of the day](<Images/hour of day count.png>)
+#### Neural Networks:
+**Hyperparameters:** batch_size, epochs \
+**Results:** `Accuracy: 0.9982, Precision: 0.8972, Recall: 0.7755, F1 Score: 0.8319` \
+**Confusion Matrix:** ![Neural_Networks.png](Images/modeling/Neural_Networks.png)
 
-Encode categorical variables using techniques like label encoding.\
-3.2 Heat map of important encoded features.\
-![heat map](<Images/heat map.png>)
+#### *Balanced Random Forest*
+**Hyperparameters:** n_estimators, 'max_depth','min_samples_split', 'class_weight'\
+**Best Estimator:** `BalancedRandomForestClassifier(class_weight='balanced', n_jobs=-1, replacement=True, sampling_strategy='all')` \
+**Results:** `Accuracy: 0.8563, Precision: 0.0391, Recall: 0.9961, F1 Score: 0.0753`
+**Confusion Matrix:**![Balanced_Random_Forest.png](Images/modeling/Balanced_Random_Forest.png)
 
-### Fraud Analysis
+### Confusion Matrices and ROC Curves
+For each model, confusion matrices and ROC curves were plotted to visualize the performance. The confusion matrix helps to understand the true positives, false positives, true negatives, and false negatives. The ROC curve illustrates the true positive rate against the false positive rate at various threshold settings.
 
-1. Analyze the distribution of fraud labels (is_fraud) to understand the class balance and potential imbalances.\
-The Below plots show how the data is highly imbalanced with less than 10000 fraud transactions for over a million total transactions.\
-![fraud vs non-fraud](<Images/fraud vs non-fraud total.png>)\
-![fraud vs non-fraud pie](<Images/fraud vs non-fraud total pie.png>)
+### Results-Comparison
+The results of the model evaluations are summarized below:
 
-2. Compare statistical summaries and distributions of features between fraud and non-fraud transactions to identify patterns or anomalies.
+**Accuracy:** Indicates the proportion of correct predictions. \
+![Accuracy_Comparison.png](Images/modeling/Accuracy_Comparison.png) \
+**Precision:** Measures the accuracy of positive predictions. \
+![Precision_Comparison.png](Images/modeling/Precision_Comparison.png) \
+**Recall:** Measures the ability to identify all actual positive cases. \
+![Recall_Comparison.png](Images/modeling/Recall_Comparison.png) \
+**Overall Results Comparison**: ![Overall_Comparison.png](Images/modeling/Overall_Comparison.png)
 
-    Fraud Statistics by gender, state and Hour of day\
-![fraud statistics](<Images/fraud statistics.png>)
+## Observations
+**Accuracy:** All models, except for the Balanced Random Forest Classifier, achieved very high accuracy (>99%), indicating overall strong performance in predicting both fraud and non-fraud cases. The Neural Network model had the highest accuracy at 99.82%, followed closely by the Decision Tree Classifier (99.78%) and Gradient Boosting (99.75%).\
+**Precision:** Precision measures the accuracy of positive predictions, crucial for minimizing false positives (correctly identifying actual fraud cases). The Neural Network model had the highest precision (89.72%), followed by the Decision Tree Classifier (79.60%) and Gradient Boosting (72.97%). The Balanced Random Forest Classifier had a significantly lower precision (3.91%), indicating a high number of false positives.\
+**Recall:** Recall is particularly important in fraud detection to minimize false negatives (missing actual fraud cases). The Balanced Random Forest Classifier exhibited the highest recall (99.61%), indicating its ability to effectively capture actual fraudulent transactions among all true fraud cases. Gradient Boosting (92.25%) and Random Forest (90.33%) also showed strong recall performance.\
+**F1 Score:** The F1 Score provides a balanced measure of precision and recall. The Neural Network model achieved the highest F1 score (83.19%), followed closely by the Decision Tree Classifier (81.84%) and Gradient Boosting (81.48%). The Balanced Random Forest Classifier had a very low F1 score (7.53%) due to its low precision.\
+**ROC-AUC:** The ROC-AUC score reflects the model's ability to distinguish between fraud and non-fraud transactions. Gradient Boosting had the highest ROC-AUC score (99.87%), followed by the Neural Network (99.44%) and Random Forest (98.99%). The Balanced Random Forest Classifier also performed well in this metric with a ROC-AUC score of 99.57%.
 
-    Fraud by State\
-![fraud by state](<Images/fraud statistics by state.png>)
+## Model Evaluation on Test Data
 
-    Fraud by Age\
-![Fraud by age](<Images/fraud statistics by age.png>)\
-![Fraud by age bar plot](<Images/fraud statistics by age - bar plot.png>)
+The test data has been treated and processed the same way as the train data by applying standard scalers, encoders, adding, and removing appropriate columns. \ 
+Upon processing data and passing it over to the trained models, the Neural Network performed the best. Other models couldn't perform well due to the highly imbalanced nature of the data. The confusion matrices for each of those models can be found in the Jupyter notebook file. The confusion matrix of the winning model is shown below.![Final_Result_Neural_Network.png](Images/modeling/Final_Result_Neural_Network.png)
 
-### Feature Importance
-
-Determined feature importance using machine learning models (e.g., RandomForestClassifier) to understand which features contribute most to fraud detection.\
-
-Feature Importance.\
-![Feature Importance](<Images/feature importance.png>)
-
-The above graph shows that the amount has significant importance when determining which transaction could be a fraud one. Followed by category, hour and age.
-
-### Outlier Analysis
-
-As discussed above, there are outliers in the amt column of the data and the count of outliers (that are below the 25th quartile and above the 75th quartile) is: 67290
 
 ## Conclusion
+Based on the provided performance metrics, the Neural Network model emerged as the top performer for predicting credit card fraud. It achieved the highest precision and a strong balance between recall and F1 score, making it effective at identifying fraudulent transactions while minimizing false positives. The Gradient Boosting model also demonstrated excellent performance across all metrics, particularly in recall and ROC-AUC, indicating its robustness in distinguishing between fraud and non-fraud transactions. \
 
-Through exploratory data analysis (EDA), we gained insights into the dataset, identified relevant features for fraud detection, and performed necessary preprocessing steps. The feature importance analysis provided valuable information on which features are crucial for our fraud detection model.
+While our model achieved strong results, there is still room for improvement as it failed to detect 513 fraudulent transactions. However, given the available resources, this is the best performance we could achieve with the current models. Future work can focus on further refining the model and exploring additional techniques to enhance fraud detection accuracy. 
