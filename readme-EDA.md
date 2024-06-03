@@ -58,48 +58,48 @@ The histograms indicate that the amount and population columns are highly skewed
 ![violin_plots.png](Images/EDA/violin_plots.png)
 ![box_plots.png](Images/EDA/box_plots.png)
 2.3 Transactions by Category.\
-![transactions_by_category.png](Images/EDA/transactions_by_category.png)
+![transactions_by_category.png](Images/EDA/transactions_by_category.png) \ 
 2.4 Transactions by Gender\
 ![fraud_vs_gender.png](Images/EDA/fraud_vs_gender.png)
 
-3. Explore correlations between features using heatmaps or scatter plots.\
-3.1 Pair plot of important features\
-![pair_plot.png](Images/EDA/pair_plot.png)
 
 ### Feature Engineering
 
 Create new features such as age from date of birth (dob) and extract temporal features like day of the week, month, and hour from timestamps (trans_date_trans_time).\
-![hour_of_day_count.png](Images/EDA/hour_of_day_count.png)
-![day_of_week_count.png](Images/EDA/day_of_week_count.png)
+![hour_of_day_count.png](Images/EDA/hour_of_day_count.png) \
+![day_of_week_count.png](Images/EDA/day_of_week_count.png) \
+
+Explore correlations between features using heatmaps or scatter plots.\
+Pair plot of important features \
+![pair_plot.png](Images/EDA/pair_plot.png) \
 
 Encode categorical variables using techniques like label encoding.\
-3.2 Heat map of important encoded features.\
+Heat map of important encoded features.\
 ![heatmap.png](Images/EDA/heatmap.png)
+
 
 ### Fraud Analysis
 
 1. Analyze the distribution of fraud labels (is_fraud) to understand the class balance and potential imbalances.\
 The Below plots show how the data is highly imbalanced with less than 10000 fraud transactions for over a million total transactions.\
-![fraud_vs_non-fraud_total.png](Images/EDA/fraud_vs_non-fraud_total.png)
+![fraud_vs_non-fraud_total.png](Images/EDA/fraud_vs_non-fraud_total.png) \
 ![fraud_vs_non-fraud_total_pie.png](Images/EDA/fraud_vs_non-fraud_total_pie.png)
 
 2. Compare statistical summaries and distributions of features between fraud and non-fraud transactions to identify patterns or anomalies.
 
-    Fraud Statistics by gender, state and Hour of day\
+Fraud Statistics by gender, state and Hour of day\
 ![fraud_statistics.png](Images/EDA/fraud_statistics.png)
 
-    Fraud by State\
+Fraud by State\
 ![fraud_statistics_by_state.png](Images/EDA/fraud_statistics_by_state.png)
 
-    Fraud by Age\
+Fraud by Age\
 ![fraud_statistics_by_age.png](Images/EDA/fraud_statistics_by_age.png)
 ![fraud_statistics_by_age__bar_plot.png](Images/EDA/fraud_statistics_by_age__bar_plot.png)
 
 ### Feature Importance
 
-Determined feature importance using machine learning models (e.g., RandomForestClassifier) to understand which features contribute most to fraud detection.\
-
-Feature Importance.\
+Determined feature importance using machine learning models (e.g., RandomForestClassifier) to understand which features contribute most to fraud detection.
 ![Feature_Importance.png](Images/EDA/Feature_Importance.png)
 
 The above graph shows that the amount has significant importance when determining which transaction could be a fraud one. Followed by category, hour and age.
