@@ -58,7 +58,7 @@ The histograms indicate that the amount and population columns are highly skewed
 ![violin_plots.png](Images/EDA/violin_plots.png)
 ![box_plots.png](Images/EDA/box_plots.png)
 2.3 Transactions by Category.\
-![transactions_by_category.png](Images/EDA/transactions_by_Category.png) \ 
+![transactions_by_category.png](Images/EDA/transactions_by_Category.png)
 2.4 Transactions by Gender\
 ![fraud_vs_gender.png](Images/EDA/fraud_vs_gender.png)
 
